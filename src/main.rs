@@ -1,5 +1,6 @@
 extern crate clap;
-use clap::{App, Arg, SubCommand};
+use clap::{App, Arg, ArgMatches, SubCommand};
+use std::process;
 
 fn main() {
     let matches = App::new("HMDA Platform CLI")
@@ -38,4 +39,13 @@ fn main() {
                 ),
         )
         .get_matches();
+
+    if let Err(e) = run(matches) {
+        println!("An error has occured: {}", e);
+        process::exit(1);
+    }
+
+    fn run(matches: ArgMatches) -> Result<(), String> {
+        Ok(())
+    }
 }
