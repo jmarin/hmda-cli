@@ -47,12 +47,6 @@ fn main() {
         )
         .get_matches();
 
-    //if let Some(matches) = matches.subcommand_matches("uli") {
-    //    println!("Called ULI");
-    //}
-
-    //run(matches).unwrap();
-
     if let Err(e) = run(&matches) {
         println!("An error has occured: {}", e);
         process::exit(1);
