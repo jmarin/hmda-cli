@@ -3,18 +3,23 @@ extern crate hmda;
 use clap::{App, Arg, ArgMatches, SubCommand};
 use std::process;
 use hmda::uli;
+use hmda::status;
 
 fn main() {
     let matches = App::new("HMDA Platform CLI")
         .version("0.1.0")
         .author("Juan Marin Otero <juan.marin.otero@gmail.com>")
         .about("Command Line Interface client for the HMDA Platform")
-        //.arg(
-        //    Arg::with_name("HOST")
-        //        .takes_value(true)
-        //        .index(1)
-        //        .help("Sets host to connect to"),
-        //)
+        .subcommand(
+            SubCommand::with_name("status")
+                .about("HMDA API Health Check")
+                .arg(
+                    Arg::with_name("host")
+                        .takes_value(true)
+                        .index(1)
+                        .help("sets the HMDA API host"),
+                ),
+        )
         .subcommand(
             SubCommand::with_name("uli")
                 .about("Create check digit and validate a ULI")
@@ -55,9 +60,19 @@ fn main() {
 
     fn run(matches: &ArgMatches) -> Result<(), String> {
         match matches.subcommand() {
+            ("status", Some(m)) => run_status(m),
             ("uli", Some(m)) => run_uli(m),
             _ => Ok(()),
         }
+    }
+
+    fn run_status(matches: &ArgMatches) -> Result<(), String> {
+        let maybe_hostname = matches.value_of("host");
+        let hostname = match maybe_hostname {
+            Some(host) => host,
+            None => "https://ffiec-api.cfpb.gov/public/",
+        };
+        status::hmda_api_status(hostname)
     }
 
     fn run_uli(matches: &ArgMatches) -> Result<(), String> {
