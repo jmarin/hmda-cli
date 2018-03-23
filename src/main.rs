@@ -9,12 +9,12 @@ fn main() {
         .version("0.1.0")
         .author("Juan Marin Otero <juan.marin.otero@gmail.com>")
         .about("Command Line Interface client for the HMDA Platform")
-        .arg(
-            Arg::with_name("v")
-                .short("v")
-                .long("verbose")
-                .help("Sets verbosity level"),
-        )
+        //.arg(
+        //    Arg::with_name("HOST")
+        //        .takes_value(true)
+        //        .index(1)
+        //        .help("Sets host to connect to"),
+        //)
         .subcommand(
             SubCommand::with_name("uli")
                 .about("Create check digit and validate a ULI")
@@ -42,14 +42,28 @@ fn main() {
         )
         .get_matches();
 
-    if let Err(e) = run(matches) {
+    //if let Some(matches) = matches.subcommand_matches("uli") {
+    //    println!("Called ULI");
+    //}
+
+    //run(matches).unwrap();
+
+    if let Err(e) = run(&matches) {
         println!("An error has occured: {}", e);
         process::exit(1);
     }
 
-    fn run(matches: ArgMatches) -> Result<(), String> {
+    fn run(matches: &ArgMatches) -> Result<(), String> {
         match matches.subcommand() {
-            ("validate", Some(m)) => uli::validate(m),
+            ("uli", Some(m)) => run_uli(m),
+            _ => Ok(()),
+        }
+    }
+
+    fn run_uli(matches: &ArgMatches) -> Result<(), String> {
+        match matches.subcommand() {
+            ("validate", Some(m)) => uli::validate_uli(m),
+            ("check-digit", Some(m)) => uli::check_digit(m),
             _ => Ok(()),
         }
     }
