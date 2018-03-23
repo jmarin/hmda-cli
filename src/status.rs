@@ -1,20 +1,22 @@
 extern crate futures;
 extern crate hyper;
 extern crate hyper_tls;
+extern crate num_cpus;
 extern crate tokio_core;
 
 use std::io::{self, Write};
-use status::hyper::Client;
-use status::hyper_tls::HttpsConnector;
-use status::tokio_core::reactor::Core;
-use status::futures::future::Future;
-use status::futures::Stream;
+use hyper::Client;
+use hyper_tls::HttpsConnector;
+use tokio_core::reactor::Core;
+use futures::future::Future;
+use futures::Stream;
 
 pub fn hmda_api_status(url: &str) -> Result<(), String> {
     let mut core = Core::new().unwrap();
     let handle = core.handle();
+    let num_cpus = num_cpus::get();
     let client = Client::configure()
-        .connector(HttpsConnector::new(4, &handle).unwrap())
+        .connector(HttpsConnector::new(num_cpus, &handle).unwrap())
         .build(&handle);
 
     let uri = url.parse().unwrap();
