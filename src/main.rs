@@ -1,6 +1,8 @@
 extern crate clap;
+extern crate hmda;
 use clap::{App, Arg, ArgMatches, SubCommand};
 use std::process;
+use hmda::uli;
 
 fn main() {
     let matches = App::new("HMDA Platform CLI")
@@ -46,6 +48,9 @@ fn main() {
     }
 
     fn run(matches: ArgMatches) -> Result<(), String> {
-        Ok(())
+        match matches.subcommand() {
+            ("validate", Some(m)) => uli::validate(m),
+            _ => Ok(()),
+        }
     }
 }

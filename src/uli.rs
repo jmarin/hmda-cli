@@ -1,3 +1,9 @@
-fn validate() {}
+extern crate clap;
 
-fn check_digit() {}
+use self::clap::ArgMatches;
+
+pub fn validate(matches: &ArgMatches) -> Result<(), String> {
+    Ok(())
+}
+
+pub fn check_digit() {}
