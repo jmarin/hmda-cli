@@ -6,7 +6,7 @@ extern crate serde_json;
 extern crate tokio_core;
 
 use std::io;
-use hyper::{Client, Error};
+use hyper::Client;
 use hyper_tls::HttpsConnector;
 use tokio_core::reactor::Core;
 use futures::future::Future;
