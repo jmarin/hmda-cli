@@ -1,9 +1,24 @@
 extern crate clap;
 extern crate hmda;
+
+#[macro_use]
+extern crate serde_derive;
+
+#[macro_use]
+extern crate serde_json;
+
 use clap::{App, Arg, ArgMatches, SubCommand};
 use std::process;
 use hmda::uli;
 use hmda::status;
+
+#[derive(Serialize, Deserialize, Debug)]
+struct ServiceStatus {
+    status: String,
+    service: String,
+    time: String,
+    host: String,
+}
 
 fn main() {
     let matches = App::new("HMDA Platform CLI")
@@ -52,21 +67,26 @@ fn main() {
         process::exit(1);
     }
 
-    fn run(matches: &ArgMatches) -> Result<(), String> {
+    if let Result::Ok(response) = run(&matches) {
+        let deserialized: ServiceStatus = serde_json::from_str(&response).unwrap();
+        println!("{:?}", deserialized);
+    }
+
+    fn run(matches: &ArgMatches) -> Result<String, String> {
         match matches.subcommand() {
             ("status", Some(m)) => run_status(m),
-            ("uli", Some(m)) => run_uli(m),
-            _ => Ok(()),
+            //("uli", Some(m)) => run_uli(m),
+            _ => Ok((String::new())),
         }
     }
 
-    fn run_status(matches: &ArgMatches) -> Result<(), String> {
+    fn run_status(matches: &ArgMatches) -> Result<String, String> {
         let maybe_hostname = matches.value_of("host");
         let hostname = match maybe_hostname {
             Some(host) => host,
             None => "https://ffiec-api.cfpb.gov/public/",
         };
-        status::hmda_api_status(hostname)
+        status::hmda_api_status2(hostname)
     }
 
     fn run_uli(matches: &ArgMatches) -> Result<(), String> {
