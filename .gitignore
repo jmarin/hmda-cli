@@ -10,3 +10,8 @@ Cargo.lock
 **/*.rs.bk
 
 rusty-tags.vi
+
+*.swp
+
+.idea/
+*.iml

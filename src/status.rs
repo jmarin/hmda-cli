@@ -61,13 +61,3 @@ pub fn hmda_api_status(url: &str) -> Result<(), String> {
     core.run(work_verbose).unwrap();
     Ok(())
 }
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-
-    fn test_hmda_api_status() {}
-}
