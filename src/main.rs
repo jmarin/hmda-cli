@@ -4,12 +4,11 @@ extern crate hmda;
 #[macro_use]
 extern crate serde_derive;
 
-#[macro_use]
+//#[macro_use]
 extern crate serde_json;
 
 use clap::{App, Arg, ArgMatches, SubCommand};
 use std::process;
-use hmda::uli;
 use hmda::status;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -36,29 +35,10 @@ fn main() {
                 ),
         )
         .subcommand(
-            SubCommand::with_name("uli")
-                .about("Create check digit and validate a ULI")
-                .subcommand(
-                    SubCommand::with_name("validate")
-                        .arg(
-                            Arg::with_name("ULI")
-                                .help("sets the value for the ULI")
-                                .required(true)
-                                .index(1)
-                                .help("ULI value"),
-                        )
-                        .help("usage: hmda uli validate <ULI>"),
-                )
-                .subcommand(
-                    SubCommand::with_name("check-digit")
-                        .arg(
-                            Arg::with_name("LOAN_ID")
-                                .required(true)
-                                .index(1)
-                                .help("Loan ID value"),
-                        )
-                        .help("usage: hmda uli check-digit <LOAN_ID>"),
-                ),
+            SubCommand::with_name("ts")
+                .about("HMDA Transmittal Sheet")
+                .subcommand(SubCommand::with_name("generate"))
+                .about("Generates Sample Transmittal Sheet"),
         )
         .get_matches();
 
@@ -75,8 +55,11 @@ fn main() {
     fn run(matches: &ArgMatches) -> Result<String, String> {
         match matches.subcommand() {
             ("status", Some(m)) => run_status(m),
-            //("uli", Some(m)) => run_uli(m),
-            _ => Ok((String::new())),
+            ("ts", Some(m)) => match m.subcommand {
+                //("generate", Some(m)) => run_ts_generate(m),
+                _ => Ok(String::new()),
+            },
+            _ => Ok(String::new()),
         }
     }
 
@@ -89,11 +72,7 @@ fn main() {
         status::hmda_api_status2(hostname)
     }
 
-    fn run_uli(matches: &ArgMatches) -> Result<(), String> {
-        match matches.subcommand() {
-            ("validate", Some(m)) => uli::validate_uli(m),
-            ("check-digit", Some(m)) => uli::check_digit(m),
-            _ => Ok(()),
-        }
-    }
+    //fn run_ts_generate(matches: &ArgMatches) -> Result<String, String> {
+
+    //}
 }
