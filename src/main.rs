@@ -4,13 +4,13 @@ extern crate hmda;
 #[macro_use]
 extern crate serde_derive;
 
-#[macro_use]
 extern crate serde_json;
 
 use clap::{App, Arg, ArgMatches, SubCommand};
 use std::process;
 use hmda::uli;
 use hmda::status;
+use hmda::model::ts;
 
 #[derive(Serialize, Deserialize, Debug)]
 struct ServiceStatus {
@@ -60,6 +60,23 @@ fn main() {
                         .help("usage: hmda uli check-digit <LOAN_ID>"),
                 ),
         )
+        .subcommand(
+            SubCommand::with_name("ts")
+                .about("Transmittal Sheet")
+                .subcommand(
+                    SubCommand::with_name("generate")
+                        .about("Generate Sample Transmittal Sheet")
+                )
+                .subcommand(
+                    SubCommand::with_name("parse")
+                        .about("Parse Transmittal Sheet")
+                        .arg(
+                            Arg::with_name("TS")
+                                .help("Transmittal Sheet value")
+                                .index(1)
+                        )
+                )
+        )
         .get_matches();
 
     if let Err(e) = run(&matches) {
@@ -68,15 +85,16 @@ fn main() {
     }
 
     if let Result::Ok(response) = run(&matches) {
-        let deserialized: ServiceStatus = serde_json::from_str(&response).unwrap();
-        println!("{:?}", deserialized);
+        //let deserialized: ServiceStatus = serde_json::from_str(&response).unwrap();
+        println!("{:?}", response);
     }
 
     fn run(matches: &ArgMatches) -> Result<String, String> {
         match matches.subcommand() {
             ("status", Some(m)) => run_status(m),
-            //("uli", Some(m)) => run_uli(m),
-            _ => Ok((String::new())),
+            ("uli", Some(m)) => run_uli(m),
+            ("ts", Some(m)) => run_ts(m),
+            _ => Ok(String::new()),
         }
     }
 
@@ -89,11 +107,19 @@ fn main() {
         status::hmda_api_status2(hostname)
     }
 
-    fn run_uli(matches: &ArgMatches) -> Result<(), String> {
+    fn run_uli(matches: &ArgMatches) -> Result<String, String> {
         match matches.subcommand() {
             ("validate", Some(m)) => uli::validate_uli(m),
             ("check-digit", Some(m)) => uli::check_digit(m),
-            _ => Ok(()),
+            _ => Ok(String::from("")),
         }
+    }
+
+    fn run_ts(matches: &ArgMatches) -> Result<String, String> {
+      match matches.subcommand() {
+        ("generate", Some(_)) => Ok(ts::TransmittalSheet::ts_sample().to_string()),
+        _ => Ok(String::from("")),
+      }    
+        
     }
 }

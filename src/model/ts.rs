@@ -48,7 +48,7 @@ pub struct TransmittalSheet {
 }
 
 impl TransmittalSheet {
-    pub fn ts_sample(&self) -> TransmittalSheet {
+    pub fn ts_sample() -> TransmittalSheet {
         TransmittalSheet {
             id: 1,
             institution_name: String::from("Bank 0"),
