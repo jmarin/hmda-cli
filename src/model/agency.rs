@@ -11,7 +11,7 @@ pub enum Agency {
 }
 
 impl Agency {
-    pub fn value_of(&self) -> i32 {
+    pub fn value_of(&self) -> i8 {
         match *self {
             Agency::OCC => 1,
             Agency::FRS => 2,

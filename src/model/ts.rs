@@ -36,13 +36,13 @@ impl fmt::Display for Contact {
 }
 
 pub struct TransmittalSheet {
-    pub id: i32,
+    pub id: u8,
     pub institution_name: String,
-    pub year: i32,
-    pub quarter: i32,
+    pub year: u16,
+    pub quarter: u8,
     pub contact: Contact,
     pub agency: agency::Agency,
-    pub total_lines: i32,
+    pub total_lines: u8,
     pub tax_id: String,
     pub lei: String,
 }
