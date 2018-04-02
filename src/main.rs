@@ -86,7 +86,7 @@ fn main() {
 
     if let Result::Ok(response) = run(&matches) {
         //let deserialized: ServiceStatus = serde_json::from_str(&response).unwrap();
-        println!("{:?}", response);
+        println!("{}", response);
     }
 
     fn run(matches: &ArgMatches) -> Result<String, String> {
