@@ -21,7 +21,7 @@ fn test_ts_sample() {
         address: address,
     };
     let agency = model::agency::Agency::CFPB;
-    let ts = model::ts::ts_sample(None);
+    let ts = model::ts::TransmittalSheet::ts_sample();
     assert_eq!(ts.id, 1);
     assert_eq!(ts.to_string(), "1|Bank 0|2018|4|Jane Smith|111-111-1111|jane.smith@bank0.com|123 Main St|Washington|DC|20001|9|1000|99-999999|10Bx939c5543TqA1144M")
 }

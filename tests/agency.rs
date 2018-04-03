@@ -3,7 +3,7 @@ extern crate hmda;
 use hmda::*;
 
 #[test]
-fn test_value_of() {
+fn test_agency_value_of() {
     assert_eq!(model::agency::Agency::OCC.value_of(), 1);
     assert_eq!(model::agency::Agency::FRS.value_of(), 2);
     assert_eq!(model::agency::Agency::FDIC.value_of(), 3);
