@@ -16,22 +16,22 @@ pub struct Loan {
 }
 
 impl Loan {
-pub fn sample_loan() -> Loan {
-  Loan {
-    uli: "10Bx939c5543TqA1144M999143X38".to_string(),
-    application_date: "20180721".to_string(),
-    loan_type: 1,
-    loan_purpose: 1,
-    construction_method: 1,
-    occupancy: 1,
-    amount: 110500.00,
-    loan_term: "360".to_string(),
-    rate_spread: "0.428".to_string(),
-    interest_rate: "4.125".to_string(),
-    prepayment_penalty_term: "NA".to_string(),
-    debt_to_income_ratio: "42.95".to_string(),
-    loan_to_value_ratio: "80.05".to_string(),
-    introductory_rate_period: "NA".to_string(),
-  }    
-}
+    pub fn sample_loan() -> Loan {
+        Loan {
+            uli: "10Bx939c5543TqA1144M999143X38".to_string(),
+            application_date: "20180721".to_string(),
+            loan_type: 1,
+            loan_purpose: 1,
+            construction_method: 1,
+            occupancy: 1,
+            amount: 110500.00,
+            loan_term: "360".to_string(),
+            rate_spread: "0.428".to_string(),
+            interest_rate: "4.125".to_string(),
+            prepayment_penalty_term: "NA".to_string(),
+            debt_to_income_ratio: "42.95".to_string(),
+            loan_to_value_ratio: "80.05".to_string(),
+            introductory_rate_period: "NA".to_string(),
+        }
+    }
 }

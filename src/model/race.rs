@@ -11,17 +11,17 @@ pub struct Race {
 }
 
 impl Race {
-pub fn sample_race() -> Race {
-  Race {
-    race1: 5,
-    race2: -1,
-    race3: -1,
-    race4: -1,
-    race5: -1,
-    other_native: "".to_string(),
-    other_asian: "".to_string(),
-    other_pacific_islander: "".to_string(),
-    race_observed: 3,
-  }    
-}
+    pub fn sample_race() -> Race {
+        Race {
+            race1: 5,
+            race2: 7,
+            race3: 7,
+            race4: 7,
+            race5: 7,
+            other_native: "".to_string(),
+            other_asian: "".to_string(),
+            other_pacific_islander: "".to_string(),
+            race_observed: 3,
+        }
+    }
 }

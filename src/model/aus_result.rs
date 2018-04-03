@@ -34,5 +34,5 @@ impl fmt::Display for AutomatedUnderwritingSystemResult {
        self.aus_result5,
        self.other_aus_result
      ) 
-  }    
+  }
 }

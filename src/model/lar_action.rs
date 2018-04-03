@@ -5,11 +5,11 @@ pub struct LarAction {
 }
 
 impl LarAction {
-pub fn sample_lar_action() -> LarAction {
-  LarAction {
-    preapproval: 1,
-    action_taken_type: 1,
-    action_taken_date: 20180721,
-  }    
-}
+    pub fn sample_lar_action() -> LarAction {
+        LarAction {
+            preapproval: 1,
+            action_taken_type: 1,
+            action_taken_date: 20180721,
+        }
+    }
 }

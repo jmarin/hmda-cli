@@ -7,11 +7,11 @@ pub struct LarIdentifier {
 }
 
 impl LarIdentifier {
-pub fn sample_lar_identifier() -> LarIdentifier {
-  LarIdentifier {
-    id: 2,
-    lei: "10Bx939c5543TqA1144M".to_string(),
-    nmls_identifier: "12345".to_string(),
-  }    
-}
+    pub fn sample_lar_identifier() -> LarIdentifier {
+        LarIdentifier {
+            id: 2,
+            lei: "10Bx939c5543TqA1144M".to_string(),
+            nmls_identifier: "12345".to_string(),
+        }
+    }
 }

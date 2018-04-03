@@ -6,12 +6,12 @@ pub struct NonAmortizingFeatures {
 }
 
 impl NonAmortizingFeatures {
-pub fn sample_non_amortizing_features() -> NonAmortizingFeatures {
-  NonAmortizingFeatures {
-    balloon_payment: 1,
-    interest_only_payment: 2,
-    negative_amortization: 1,
-    other_non_amortizing_features: 1,
-  }    
-}
+    pub fn sample_non_amortizing_features() -> NonAmortizingFeatures {
+        NonAmortizingFeatures {
+            balloon_payment: 1,
+            interest_only_payment: 2,
+            negative_amortization: 1,
+            other_non_amortizing_features: 1,
+        }
+    }
 }

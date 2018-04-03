@@ -7,13 +7,13 @@ pub struct Property {
 }
 
 impl Property {
-  pub fn sample_property() -> Property {
-    Property {
-      property_value: "350500".to_string(),
-      manufactured_home_secured_property: 1,
-      manufactured_home_land_property_interest: 1,
-      total_units: 5,
-      multifamily_affordable_units: "NA".to_string(),
-    }    
-  }    
+    pub fn sample_property() -> Property {
+        Property {
+            property_value: "350500".to_string(),
+            manufactured_home_secured_property: 1,
+            manufactured_home_land_property_interest: 1,
+            total_units: 5,
+            multifamily_affordable_units: "NA".to_string(),
+        }
+    }
 }

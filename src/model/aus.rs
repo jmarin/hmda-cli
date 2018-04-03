@@ -13,10 +13,10 @@ impl AutomatedUnderwritingSystem {
   pub fn sample_aus() -> AutomatedUnderwritingSystem {
       AutomatedUnderwritingSystem {
           aus1: 1,
-          aus2: -1,
-          aus3: -1,
-          aus4: -1,
-          aus5: -1,
+          aus2: 1,
+          aus3: 1,
+          aus4: 1,
+          aus5: 1,
           other_aus: "".to_string(), 
       }
   }
@@ -29,5 +29,5 @@ impl fmt::Display for AutomatedUnderwritingSystem {
       "{}|{}|{}|{}|{}|{}",
       self.aus1,self.aus2,self.aus3,self.aus4,self.aus5,self.other_aus
     )    
-  }    
+  }
 }

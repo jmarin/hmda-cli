@@ -4,10 +4,10 @@ pub struct Sex {
 }
 
 impl Sex {
-  pub fn sample_sex() -> Sex {
-    Sex {
-      sex: 1,
-      sex_observed: 3,
-    }    
-  }
+    pub fn sample_sex() -> Sex {
+        Sex {
+            sex: 1,
+            sex_observed: 3,
+        }
+    }
 }
