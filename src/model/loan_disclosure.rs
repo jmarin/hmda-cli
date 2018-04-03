@@ -1,7 +1,7 @@
 pub struct LoanDisclosure {
-    total_loan_costs: String,
-    total_points_and_fees: String,
-    origination_charges: String,
-    discount_points: String,
-    lender_credits: String,
+    pub total_loan_costs: String,
+    pub total_points_and_fees: String,
+    pub origination_charges: String,
+    pub discount_points: String,
+    pub lender_credits: String,
 }

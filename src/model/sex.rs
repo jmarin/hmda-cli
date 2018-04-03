@@ -1,4 +1,4 @@
 pub struct Sex {
-    sex: u8,
-    sex_observed: u8,
+    pub sex: u8,
+    pub sex_observed: u8,
 }

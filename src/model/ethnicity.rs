@@ -1,9 +1,9 @@
 pub struct Ethnicity {
-    ethnicity1: u8,
-    ethnicity2: u8,
-    ethnicity3: u8,
-    ethnicity4: u8,
-    ethnicity5: u8,
-    other_hispanic_latino: String,
-    ethnicity_observed: u8,
+    pub ethnicity1: u8,
+    pub ethnicity2: u8,
+    pub ethnicity3: u8,
+    pub ethnicity4: u8,
+    pub ethnicity5: u8,
+    pub other_hispanic_latino: String,
+    pub ethnicity_observed: u8,
 }

@@ -1,8 +1,8 @@
 pub struct Geography {
-    street: String,
-    city: String,
-    state: String,
-    zip_code: String,
-    county: String,
-    tract: String,
+    pub street: String,
+    pub city: String,
+    pub state: String,
+    pub zip_code: String,
+    pub county: String,
+    pub tract: String,
 }

@@ -13,25 +13,31 @@ use model::aus_result::AutomatedUnderwritingSystemResult;
 use model::denial::Denial;
 
 pub struct LoanApplicationRegister {
-    lar_identifier: LarIdentifier,
-    loan: Loan,
-    action: LarAction,
-    geography: Geography,
-    applicant: Applicant,
-    co_applicant: Applicant,
-    income: String,
-    purchaser_type: u8,
-    hoepa_status: u8,
-    lien_status: u8,
-    denial: Denial,
-    loan_disclosure: LoanDisclosure,
-    non_amortizing_features: NonAmortizingFeatures,
-    property: Property,
-    application_submission: u8,
-    payable_to_institution: u8,
-    aus: AutomatedUnderwritingSystem,
-    aus_result: AutomatedUnderwritingSystemResult,
-    reverse_mortgage: u8,
-    line_of_credit: u8,
-    business_or_commercial_purpose: u8,
+    pub lar_identifier: LarIdentifier,
+    pub loan: Loan,
+    pub action: LarAction,
+    pub geography: Geography,
+    pub applicant: Applicant,
+    pub co_applicant: Applicant,
+    pub income: String,
+    pub purchaser_type: u8,
+    pub hoepa_status: u8,
+    pub lien_status: u8,
+    pub denial: Denial,
+    pub loan_disclosure: LoanDisclosure,
+    pub non_amortizing_features: NonAmortizingFeatures,
+    pub property: Property,
+    pub application_submission: u8,
+    pub payable_to_institution: u8,
+    pub aus: AutomatedUnderwritingSystem,
+    pub aus_result: AutomatedUnderwritingSystemResult,
+    pub reverse_mortgage: u8,
+    pub line_of_credit: u8,
+    pub business_or_commercial_purpose: u8,
+}
+
+impl fmt::Display for LoanApplicationRegister {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.lar_identifier.id)
+    }
 }
