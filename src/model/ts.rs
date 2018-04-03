@@ -42,7 +42,7 @@ pub struct TransmittalSheet {
     pub quarter: u8,
     pub contact: Contact,
     pub agency: agency::Agency,
-    pub total_lines: u8,
+    pub total_lines: i32,
     pub tax_id: String,
     pub lei: String,
 }
