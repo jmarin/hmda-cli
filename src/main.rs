@@ -10,6 +10,7 @@ use clap::{App, Arg, ArgMatches, SubCommand};
 use std::process;
 use hmda::status;
 use hmda::model::ts;
+use hmda::model::lar;
 use hmda::uli;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -34,13 +35,7 @@ fn main() {
                         .index(1)
                         .help("sets the HMDA API host"),
                 ),
-        )
-        .subcommand(
-            SubCommand::with_name("ts")
-                .about("HMDA Transmittal Sheet")
-                .subcommand(SubCommand::with_name("generate"))
-                .about("Generates Sample Transmittal Sheet"),
-        )
+        ) 
         .subcommand(
             SubCommand::with_name("ts")
                 .about("Transmittal Sheet")
@@ -53,6 +48,22 @@ fn main() {
                         .arg(
                             Arg::with_name("TS")
                                 .help("Transmittal Sheet value")
+                                .index(1),
+                        ),
+                ),
+        )
+        .subcommand(
+            SubCommand::with_name("lar")
+                .about("Loan Application Register")
+                .subcommand(
+                    SubCommand::with_name("generate").about("Generate Loan Application Register"),
+                )
+                .subcommand(
+                    SubCommand::with_name("parse")
+                        .about("Parse Loan Application Register")
+                        .arg(
+                            Arg::with_name("LAR")
+                                .help("Loan Application Register value")
                                 .index(1),
                         ),
                 ),
@@ -74,6 +85,7 @@ fn main() {
             ("status", Some(m)) => run_status(m),
             ("uli", Some(m)) => run_uli(m),
             ("ts", Some(m)) => run_ts(m),
+            ("lar", Some(m)) => run_lar(m),
             _ => Ok(String::new()),
         }
     }
@@ -100,5 +112,12 @@ fn main() {
             ("generate", Some(_)) => Ok(ts::TransmittalSheet::ts_sample().to_string()),
             _ => Ok(String::from("")),
         }
+    }
+
+    fn run_lar(matches: &ArgMatches) -> Result<String, String> {
+      match matches.subcommand() {
+        ("generate", Some(_)) => Ok(lar::LoanApplicationRegister::lar_sample().to_string()),
+        _ => Ok(String::from(""))    
+      }    
     }
 }
