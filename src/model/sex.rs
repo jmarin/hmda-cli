@@ -1,4 +1,13 @@
 pub struct Sex {
-    sex: u8,
-    sex_observed: u8,
+    pub sex: u8,
+    pub sex_observed: u8,
+}
+
+impl Sex {
+  pub fn sample_sex() -> Sex {
+    Sex {
+      sex: 1,
+      sex_observed: 3,
+    }    
+  }
 }
