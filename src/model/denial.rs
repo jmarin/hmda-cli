@@ -7,13 +7,13 @@ pub struct Denial {
 }
 
 impl Denial {
-  pub fn sample_denial() -> Denial {
-    Denial {
-      denial_reason_1: -1,
-      denial_reason_2: -1,
-      denial_reason_3: -1,
-      denial_reason_4: -1,
-      other_denial_reason: "".to_string(),
-    }    
-  }
+    pub fn sample_denial() -> Denial {
+        Denial {
+            denial_reason_1: 10,
+            denial_reason_2: 10,
+            denial_reason_3: 10,
+            denial_reason_4: 10,
+            other_denial_reason: "".to_string(),
+        }
+    }
 }
