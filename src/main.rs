@@ -1,25 +1,19 @@
 extern crate clap;
 extern crate hmda;
 
-#[macro_use]
-extern crate serde_derive;
-
-extern crate serde_json;
-
 use clap::{App, Arg, ArgMatches, SubCommand};
 use std::process;
-use hmda::status;
-use hmda::model::ts;
-use hmda::model::lar;
-use hmda::uli;
 
-#[derive(Serialize, Deserialize, Debug)]
-struct ServiceStatus {
-    status: String,
-    service: String,
-    time: String,
-    host: String,
-}
+#[macro_use]
+extern crate prettytable;
+use prettytable::Table;
+use prettytable::row::Row;
+use prettytable::cell::Cell;
+
+use hmda::model::fi::ts::transmittal_sheet::TransmittalSheet;
+use hmda::model::fi::lar::loan_application_register::LoanApplicationRegister;
+
+use hmda::api::status::hmda_api_status_url;
 
 fn main() {
     let matches = App::new("HMDA Platform CLI")
@@ -35,7 +29,7 @@ fn main() {
                         .index(1)
                         .help("sets the HMDA API host"),
                 ),
-        ) 
+        )
         .subcommand(
             SubCommand::with_name("ts")
                 .about("Transmittal Sheet")
@@ -70,54 +64,55 @@ fn main() {
         )
         .get_matches();
 
-    if let Err(e) = run(&matches) {
-        println!("An error has occured: {}", e);
-        process::exit(1);
-    }
+    run(&matches);
 
-    if let Result::Ok(response) = run(&matches) {
-        //let deserialized: ServiceStatus = serde_json::from_str(&response).unwrap();
-        println!("{}", response);
-    }
+    //if let Err(e) = run(&matches) {
+    //    println!("An error has occured: {}", e);
+    //    process::exit(1);
+    //}
 
-    fn run(matches: &ArgMatches) -> Result<String, String> {
+    //if let Result::Ok(response) = run(&matches) {
+    //    //println!("{}", response);
+    //}
+
+    fn run(matches: &ArgMatches) -> Result<(), String> {
         match matches.subcommand() {
             ("status", Some(m)) => run_status(m),
-            ("uli", Some(m)) => run_uli(m),
-            ("ts", Some(m)) => run_ts(m),
-            ("lar", Some(m)) => run_lar(m),
-            _ => Ok(String::new()),
+            //("ts", Some(m)) => run_ts(m),
+            //("lar", Some(m)) => run_lar(m),
+            _ => Ok(println!("Unknown command")),
         }
     }
 
-    fn run_status(matches: &ArgMatches) -> Result<String, String> {
+    fn run_status(matches: &ArgMatches) -> Result<(), String> {
         let maybe_hostname = matches.value_of("host");
         let hostname = match maybe_hostname {
-            Some(host) => host,
-            None => "https://ffiec-api.cfpb.gov/public/",
+            Some(host) => String::from(host),
+            None => String::from("https://ffiec-api.cfpb.gov/public/"),
         };
-        status::hmda_api_status2(hostname)
-    }
-
-    fn run_uli(matches: &ArgMatches) -> Result<String, String> {
-        match matches.subcommand() {
-            ("validate", Some(m)) => uli::validate_uli(m),
-            ("check-digit", Some(m)) => uli::check_digit(m),
-            _ => Ok(String::from("")),
-        }
+        let service_status = hmda_api_status_url(&hostname).unwrap();
+        let mut table = Table::new();
+        table.add_row(row!["STATUS", "SERVICE", "TIME", "HOST"]);
+        table.add_row(Row::new(vec![
+            Cell::new(&service_status.status),
+            Cell::new(&service_status.service),
+            Cell::new(&service_status.time),
+            Cell::new(&service_status.host),
+        ]));
+        Ok(table.printstd())
     }
 
     fn run_ts(matches: &ArgMatches) -> Result<String, String> {
         match matches.subcommand() {
-            ("generate", Some(_)) => Ok(ts::TransmittalSheet::ts_sample().to_string()),
+            ("generate", Some(_)) => Ok(TransmittalSheet::ts_sample().to_string()),
             _ => Ok(String::from("")),
         }
     }
 
     fn run_lar(matches: &ArgMatches) -> Result<String, String> {
-      match matches.subcommand() {
-        ("generate", Some(_)) => Ok(lar::LoanApplicationRegister::lar_sample().to_string()),
-        _ => Ok(String::from(""))    
-      }    
+        match matches.subcommand() {
+            ("generate", Some(_)) => Ok(LoanApplicationRegister::lar_sample().to_string()),
+            _ => Ok(String::from("")),
+        }
     }
 }
