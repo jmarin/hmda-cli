@@ -78,8 +78,8 @@ fn main() {
     fn run(matches: &ArgMatches) -> Result<(), String> {
         match matches.subcommand() {
             ("status", Some(m)) => run_status(m),
-            //("ts", Some(m)) => run_ts(m),
-            //("lar", Some(m)) => run_lar(m),
+            ("ts", Some(m)) => run_ts(m),
+            ("lar", Some(m)) => run_lar(m),
             _ => Ok(println!("Unknown command")),
         }
     }
@@ -102,17 +102,17 @@ fn main() {
         Ok(table.printstd())
     }
 
-    fn run_ts(matches: &ArgMatches) -> Result<String, String> {
+    fn run_ts(matches: &ArgMatches) -> Result<(), String> {
         match matches.subcommand() {
-            ("generate", Some(_)) => Ok(TransmittalSheet::ts_sample().to_string()),
-            _ => Ok(String::from("")),
+            ("generate", Some(_)) => Ok(println!("{}", TransmittalSheet::ts_sample())),
+            _ => Ok(println!("{}", String::from(""))),
         }
     }
 
-    fn run_lar(matches: &ArgMatches) -> Result<String, String> {
+    fn run_lar(matches: &ArgMatches) -> Result<(), String> {
         match matches.subcommand() {
-            ("generate", Some(_)) => Ok(LoanApplicationRegister::lar_sample().to_string()),
-            _ => Ok(String::from("")),
+            ("generate", Some(_)) => Ok(println!("{}", LoanApplicationRegister::lar_sample())),
+            _ => Ok(println!("{}", String::from(""))),
         }
     }
 }
